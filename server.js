@@ -1,4 +1,4 @@
-var PORT = 8000 || process.env.PORT;
+var PORT = process.env.PORT || 8000;
 var config = require('./utilities/config.js');
 var defaultRouter=require('./routes/default');
 var signupRouter=require('./routes/signup');
