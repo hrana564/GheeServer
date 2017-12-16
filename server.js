@@ -6,12 +6,7 @@ var logoutRouter = require('./routes/logout');
 var resetPasswordRouter = require('./routes/resetpassword');
 var forgotPasswordRouter = require('./routes/forgotpassword');
 
-
-var adminDashboard = require('./routes/admin/dashboard');
-
-
-var customerMain = require('./routes/customer/main');
-var cartRouter = require('./routes/customer/cart')
+var adminController = require('./routes/admin/default');
 
 var DB = config.database;
 var mongoose = require('mongoose');
@@ -35,9 +30,7 @@ app.use('/signup',signupRouter);
 app.use('/forgotPassword',forgotPasswordRouter);
 app.use('/resetPassword',resetPasswordRouter);
 app.use('/logout',logoutRouter);
-app.use('/admin/dashboard',adminDashboard);
-app.use('/customer/main',customerMain);
-app.use('/customer/cart',cartRouter);
+app.use('/Admin*',adminController);
 
 app.use('/webPages', express.static(__dirname + '/webPages'));
 
