@@ -3,18 +3,23 @@ var router = express.Router();
 var OrderModel = require('../models/order.js');
 var config = require('../utilities/config');
 var EmailUitlity =require('../utilities/email');
+var path = require('path');
 
 
 router.get('/',function(request,response){
-     OrderModel.find({},function (err,resource) {
-            if(err){
-                response.sendStatus(404);
-            } else{
-                response.setHeader('Content-Type', 'application/json');
-                response.send(JSON.stringify(resource));
-            }
-        });
+     response.sendFile(path.join(__dirname + '/../webPages/index.html'));
     });
+
+// router.get('/',function(request,response){
+//      OrderModel.find({},function (err,resource) {
+//             if(err){
+//                 response.sendStatus(404);
+//             } else{
+//                 response.setHeader('Content-Type', 'application/json');
+//                 response.send(JSON.stringify(resource));
+//             }
+//         });
+//     });
 
 router.post('/', function(request, response) {
     console.log(request.body);
@@ -25,9 +30,11 @@ router.post('/', function(request, response) {
             response.sendStatus(404);
         } else {
             try{
-                EmailUitlity.SendRetailEmail("hrana564@gmail.com", '', '', 'Welcome to '+config.AppName+'. ✔', '', "Hi "+order.orderName+", <br /> Welcome to <b>"+config.AppName+"</b>. <br /> You have been successfully registerd. Please start exploring!", function () {
+                console.log('Saved to database successfully');
                 response.sendStatus(200);
-            });
+            //     EmailUitlity.SendRetailEmail("hrana564@gmail.com", '', '', 'Welcome to '+config.AppName+'. ✔', '', "Hi "+order.orderName+", <br /> Welcome to <b>"+config.AppName+"</b>. <br /> You have been successfully registerd. Please start exploring!", function () {
+            //     response.sendStatus(200);
+            // });
             }catch (ex){
                 console.log('error while sending email. '+ex);
                 response.sendStatus(200);

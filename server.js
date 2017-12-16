@@ -39,6 +39,8 @@ app.use('/admin/dashboard',adminDashboard);
 app.use('/customer/main',customerMain);
 app.use('/customer/cart',cartRouter);
 
+app.use('/webPages', express.static(__dirname + '/webPages'));
+
 // app.use('/home',homeRouter);
 mongoose.connect(config.database, function (err) {
     if (err) {
@@ -47,10 +49,11 @@ mongoose.connect(config.database, function (err) {
         console.log("connected to mongoDB");
     }
 });
-app.set('views', __dirname + '\\views');
-app.set('view engine', 'ejs');
+// app.set('views', __dirname + '\\views');
+// app.set('view engine', 'ejs');
 // app.engine('html', require('ejs').renderFile);   
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'webPages')));
+
 
 
 app.listen(PORT, function() {
