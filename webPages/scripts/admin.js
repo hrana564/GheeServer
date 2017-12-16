@@ -15,7 +15,7 @@ app.controller('mainController', ['$http','$scope','UtilityObject', function($ht
 
 	$scope.currentGheePrice = 0;
 
-	if(1==1){
+	if(1!=1){
 		$scope.PageToShow = "main";
 		$scope.accessToken = "abcedfghijklmnopqrstuvwxyz";
 	}else{
@@ -42,14 +42,23 @@ $scope.ValidateAndLogin = function () {
 		$scope.password = "";
 		return;
 	}
-	if($scope.username!="a" || $scope.password!="a"){
-		$scope.invalidUP = true;
-		$scope.username = "";
-		$scope.password = "";
-		return;
-	}
-	$scope.PageToShow = "main";
-	$scope.accessToken = "abcedfghijklmnopqrstuvwxyz";
+  $http({
+            url: '/Admin/Login',
+            method: "POST",
+            data: { 'userName':$scope.username, 'password':$scope.password}
+        })
+  .then(function(response) {
+            // success
+            $scope.PageToShow = "main";
+            $scope.accessToken = "abcedfghijklmnopqrstuvwxyz";
+          
+        }).catch(function(response) { 
+            // failure
+            console.log(response);
+            $scope.invalidUP = true;
+            $scope.username = "";
+            $scope.password = "";
+        });
 };
 
 $scope.GetActiveGheePrice = function()	{
