@@ -4,7 +4,6 @@
   "description": "online shopping app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "Himanshu Rana",
@@ -23,5 +22,8 @@
     "nodemailer": "^2.7.0",
     "path": "^0.12.7"
   },
-  "repository": {}
+  "repository": {
+     "type": "git",
+    "url": "https://github.com/hrana564/GheeServer.git"
+  }
 }
