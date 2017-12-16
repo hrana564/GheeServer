@@ -51,7 +51,7 @@ app.controller('mainController', ['$http','$scope', function($http,$scope){
 		};
 		if(confirm("Are you sure you want to proceed with this booking?")){
 			$http({
-		        url: 'http://localhost:8000/',
+		        url: '/',
 		        method: "POST",
 		        data: { 'Name':$scope.OrdName, 'Phone':$scope.OrdPhone, 'Email':$scope.OrdEmail, 'Address':$scope.OrdAddress, 'Message': $scope.OrdMessage}
 		    })
