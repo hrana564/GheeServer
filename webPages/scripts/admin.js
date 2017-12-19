@@ -48,7 +48,8 @@ $scope.ValidateAndLogin = function () {
             // success
             $scope.PageToShow = "main";
             $scope.accessToken = "abcedfghijklmnopqrstuvwxyz";
-    $scope.loadGrid(1);
+            $scope.loadPrice();
+            $scope.loadGrid(1);
           
         }).catch(function(response) { 
             // failure
@@ -59,24 +60,31 @@ $scope.ValidateAndLogin = function () {
         });
 };
 
-$scope.GetActiveGheePrice = function()	{
-	$scope.currentGheePrice = 500;
+$scope.loadPrice = function(){
+    $http({
+            url: '/Admin/Price',
+            method: "GET",
+        })
+      .then(function(response) {
+            $scope.currentGheePrice = response.data.productPrice;
+      }).catch(function(response){
+        console.log(response);
+        alert('Error while loading the product price. Contact Admin immediately!');
+      });
 };
-
-$scope.UpdateGheePrice = function(){
-	alert('Ghee price successfully update to '+ $scope.currentGheePrice +' Rs.!');
+$scope.UpdatePrice = function(){
+    $http({
+            url: '/Admin/Price',
+            method: "POST",
+            data:{'productPrice':$scope.currentGheePrice}
+        })
+      .then(function(response) {
+            alert('Ghee price successfully updated to '+ $scope.currentGheePrice +' Rs.!');
+      }).catch(function(response){
+        console.log(response);
+        alert('Error while updating the product price. Contact Admin immediately!');
+      });
 };
-
-
-  // {
-  //   "Name": "Weber Livingston",
-  //   "Email": "weberlivingston@olympix.com",
-  //   "Phone": "+1 (965) 435-2926",
-  //   "Address": "116 Bayview Avenue, Topanga, Wisconsin, 1159",
-  //   "Message": "Vada Pav",
-  //   "isDelivered": false,
-  //   "Registered": "2016-08-03T06:17:55 -06:-30"
-  // }
 
  //declaring the variable
     $scope.AngularGrid = new GheeOrder();
@@ -89,17 +97,6 @@ $scope.UpdateGheePrice = function(){
     function Error(Message) {
         alert(Message);
     }
-
-
-    // //declaring the variable for defer and promise
-    // var defer = null;
-
-    // //Initializing for defer and promise
-    // function initPromises() {
-    //     defer = $q.defer();
-    //     var promise = defer.promise;
-    //     promise.then('', Error);
-    // }
 
     //Function to bind Angular Grid
     $scope.loadGrid = function (Index) {
