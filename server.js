@@ -18,6 +18,7 @@ var cookieParser = require('cookie-parser');
 var path = require('path');
 var morgan = require('morgan');
 mongoose.Promise = require('bluebird');
+var cors = require('cors');
 
 var app = express();
 app.use(morgan('dev'));
