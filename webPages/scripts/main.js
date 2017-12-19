@@ -2,16 +2,16 @@ var app = angular.module("GheeApp", []);
 
 app.controller('mainController', ['$http','$scope', function($http,$scope){
 
-	$http.get("http://192.168.0.103:8000/")
-    .then(function(response) {
-    		console.log(response.data);
-    	});
+	// $http.get("http://192.168.0.103:8000/")
+ //    .then(function(response) {
+ //    		console.log(response.data);
+ //    	});
 
 	$scope.OrdPlacedSuccessfully = false;
 	$scope.OrdPlacedFailure = false;
 	$scope.placeOrder = false;
 	$scope.orderQty = 1;
-	$scope.pricePerKG = 500;
+	$scope.pricePerKG = 0;
 	$scope.language = "english";
 	$scope.errMsg = "";
 	$scope.OrdName = "";
@@ -20,6 +20,19 @@ app.controller('mainController', ['$http','$scope', function($http,$scope){
 	$scope.OrdAddress = "";
 	$scope.OrdMessage = "";
 
+	$scope.loadPrice = function(){
+	    $http({
+	            url: '/Admin/Price',
+	            method: "GET",
+	        })
+	      .then(function(response) {
+	            $scope.pricePerKG = response.data.productPrice;
+	      }).catch(function(response){
+	        console.log(response);
+	        alert('Error while loading the product price. Please proceed with the booking and we will update the price later!');
+	      });
+	};
+	$scope.loadPrice();
 	$scope.PlaceOrder = function () {
 		if($scope.orderQty == ""){
 			$scope.errMsg = 'Order Quantity is Mandatory!'

@@ -9,6 +9,7 @@ var path = require('path');
 router.get('/',function(request,response){
      PriceModel.findOne({},function(err,resource){
         if(err || !resource){
+            console.log(err);
             response.sendStatus(404);
         }else{
             response.send(JSON.stringify(resource));
